@@ -3,8 +3,8 @@ import { Map } from '@/components/map';
 import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
 
 export default function Home() {
-  const { data } = useFetchBikeShare();
-  console.log('data', data);
+  const { data: bikeShareData } = useFetchBikeShare();
+
   return (
     <>
       <Head>
@@ -17,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={{ width: '100%', height: '100vh' }}>
-        <Map />
+        <Map bikeShareData={bikeShareData?.features ?? []} />
       </main>
     </>
   );
