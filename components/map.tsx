@@ -3,7 +3,6 @@ import {Map as ReactGlMap, NavigationControl, useControl} from 'react-map-gl';
 import {GeoJsonLayer, ArcLayer} from 'deck.gl';
 import {MapboxOverlay as DeckOverlay} from '@deck.gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { FeatureCollection } from 'geojson';
 
 // source: Natural Earth http://www.naturalearthdata.com/ via geojson.xyz
 const AIR_PORTS =
@@ -31,33 +30,33 @@ const onClick = info => {
     }
   };
 
-  const layers = [
-    new GeoJsonLayer({
-      id: 'airports',
-      data: AIR_PORTS,
-      // Styles
-      filled: true,
-      pointRadiusMinPixels: 2,
-      pointRadiusScale: 2000,
-      getPointRadius: f => 11 - f.properties.scalerank,
-      getFillColor: [200, 0, 80, 180],
-      // Interactive props
-      pickable: true,
-      autoHighlight: true,
-      onClick
-    }),
-    new ArcLayer({
-      id: 'arcs',
-      data: AIR_PORTS,
-      dataTransform: (d: any) => d.features.filter(f => f.properties.scalerank < 4),
-      // Styles
-      getSourcePosition: f => [-0.4531566, 51.4709959], // London
-      getTargetPosition: f => f.geometry.coordinates,
-      getSourceColor: [0, 128, 200],
-      getTargetColor: [200, 0, 80],
-      getWidth: 1
-    })
-  ];
+const layers = [
+  new GeoJsonLayer({
+    id: 'airports',
+    data: AIR_PORTS,
+    // Styles
+    filled: true,
+    pointRadiusMinPixels: 2,
+    pointRadiusScale: 2000,
+    getPointRadius: f => 11 - f.properties.scalerank,
+    getFillColor: [200, 0, 80, 180],
+    // Interactive props
+    pickable: true,
+    autoHighlight: true,
+    onClick
+  }),
+  new ArcLayer({
+    id: 'arcs',
+    data: AIR_PORTS,
+    dataTransform: (d: any) => d.features.filter(f => f.properties.scalerank < 4),
+    // Styles
+    getSourcePosition: f => [-0.4531566, 51.4709959], // London
+    getTargetPosition: f => f.geometry.coordinates,
+    getSourceColor: [0, 128, 200],
+    getTargetColor: [200, 0, 80],
+    getWidth: 1
+  })
+];
 
 export const Map = () => {
   return (
