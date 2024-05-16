@@ -32,8 +32,6 @@ const onClick = info => {
   }
 };
 
-console.log("It's the keys!!!", process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN);
-
 const layers = [
   new GeoJsonLayer({
     id: 'airports',
