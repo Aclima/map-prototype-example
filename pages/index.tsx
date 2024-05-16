@@ -1,5 +1,7 @@
-import Head from 'next/head';
-import { Map } from '@/components/map';
+import Head from "next/head";
+import { Map } from "@/components/map";
+import { Header } from "@/components/header";
+import theme, { SourceSans } from "@/utils/theme";
 import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
 
 export default function Home() {
@@ -16,7 +18,20 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main style={{ width: '100%', height: '100vh' }}>
+      <main className={SourceSans.className}>
+        <style jsx global>{`
+          body {
+            margin: 0;
+            color: ${theme.colors.textGray};
+          }
+        `}</style>
+        <Header />
+        <style jsx>{`
+          main {
+            width: 100%;
+            height: 100vh;
+          }
+        `}</style>
         <Map bikeShareData={bikeShareData?.features ?? []} />
       </main>
     </>
