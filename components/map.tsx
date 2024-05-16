@@ -4,6 +4,8 @@ import {GeoJsonLayer, ArcLayer} from 'deck.gl';
 import {MapboxOverlay as DeckOverlay} from '@deck.gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+// this is modified from this deckgl example, just to get a map on the page: https://github.com/visgl/deck.gl/blob/9.0-release/examples/get-started/react/mapbox/app.jsx
+// TODO: add different data, add legend, etc
 // source: Natural Earth http://www.naturalearthdata.com/ via geojson.xyz
 const AIR_PORTS =
   'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_10m_airports.geojson';
