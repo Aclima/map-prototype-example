@@ -1,7 +1,5 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Map } from "@/components/map";
 
 export default function Home() {
   return (
@@ -12,8 +10,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h2>Hello world</h2>
+      <main style={{width: "100%", height: "100vh"}}>
+        <Map />
       </main>
     </>
   );
