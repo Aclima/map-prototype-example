@@ -26,11 +26,13 @@ const DeckGLOverlay = (props) => {
 }
 
 const onClick = info => {
-    if (info.object) {
-      // eslint-disable-next-line
-      alert(`${info.object.properties.name} (${info.object.properties.abbrev})`);
-    }
-  };
+  if (info.object) {
+    // eslint-disable-next-line
+    alert(`${info.object.properties.name} (${info.object.properties.abbrev})`);
+  }
+};
+
+console.log("It's the keys!!!", process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN);
 
 const layers = [
   new GeoJsonLayer({
