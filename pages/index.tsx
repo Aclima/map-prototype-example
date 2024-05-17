@@ -2,7 +2,9 @@ import Head from "next/head";
 import { Map } from "@/components/map";
 import { Header } from "@/components/header";
 import theme, { SourceSans } from "@/utils/theme";
-import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
+import { useFetchBikeShare } from "@/hooks/useFetchBikeShare";
+import { Panel } from "@/components/panel";
+import { Prototype } from "@/components/prototype";
 
 export default function Home() {
   const { data: bikeShareData } = useFetchBikeShare();
@@ -25,14 +27,14 @@ export default function Home() {
             color: ${theme.colors.textGray};
           }
         `}</style>
-        <Header />
         <style jsx>{`
           main {
             width: 100%;
             height: 100vh;
           }
         `}</style>
-        <Map bikeShareData={bikeShareData?.features ?? []} />
+        <Header />
+        <Prototype bikeShareData={bikeShareData} />
       </main>
     </>
   );

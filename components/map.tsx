@@ -4,12 +4,6 @@ import { ScatterplotLayer } from 'deck.gl';
 import { MapboxOverlay as DeckOverlay } from '@deck.gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-// this is modified from this deckgl example, just to get a map on the page: https://github.com/visgl/deck.gl/blob/9.0-release/examples/get-started/react/mapbox/app.jsx
-// TODO: add different data, add legend, etc
-// source: Natural Earth http://www.naturalearthdata.com/ via geojson.xyz
-const AIR_PORTS =
-  'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_10m_airports.geojson';
-
 const INITIAL_VIEW_STATE = {
   longitude: -122.4,
   latitude: 37.74,
@@ -54,12 +48,19 @@ export const Map: React.FC<MapProps> = ({ bikeShareData }) => {
   ];
 
   return (
-    <ReactGlMap
-      initialViewState={INITIAL_VIEW_STATE}
-      mapStyle={MAP_STYLE}
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}>
-      <DeckGLOverlay layers={layers} />
-      <NavigationControl position="bottom-right" />
-    </ReactGlMap>
+      <ReactGlMap
+        initialViewState={INITIAL_VIEW_STATE}
+        mapStyle={MAP_STYLE}
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+      >
+        <DeckGLOverlay layers={layers} />
+        <NavigationControl position="bottom-right" />
+        <style jsx>{`
+          div {
+            height: 100%;
+            width: 100%;
+          }
+        `}</style>
+      </ReactGlMap>
   );
 };
