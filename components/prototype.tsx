@@ -2,11 +2,19 @@ import React from "react";
 import { Panel } from "./panel";
 import { Map } from "./map";
 import theme from "@/utils/theme";
+import { AmtrakResponse, BikeShareResponse } from "@/types";
 
-const MapContainer: React.FC<{ bikeShareData: BikeShareResponse }> = ({bikeShareData}) => {
+type MapDataResponses = {
+  bikeShareData: BikeShareResponse;
+  amtrakData: AmtrakResponse;
+};
+const MapContainer: React.FC<MapDataResponses> = ({bikeShareData, amtrakData}) => {
   return (
     <div>
-      <Map bikeShareData={bikeShareData?.features ?? []} />
+      <Map
+        bikeShareData={bikeShareData?.features ?? []}
+        amtrakData={amtrakData ?? { type: "FeatureCollection", features: [] }}
+      />
       <style jsx>{`
         div {
           height: 500px;
@@ -23,13 +31,14 @@ const MapContainer: React.FC<{ bikeShareData: BikeShareResponse }> = ({bikeShare
   );
 };
 
-export const Prototype: React.FC<{ bikeShareData: BikeShareResponse }> = ({
+export const Prototype: React.FC<MapDataResponses> = ({
   bikeShareData,
+  amtrakData,
 }) => {
   return (
     <div>
       <Panel />
-      <MapContainer bikeShareData={bikeShareData} />
+      <MapContainer bikeShareData={bikeShareData} amtrakData={amtrakData}/>
       <style jsx>{`
         div {
           height: 100%;

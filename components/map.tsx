@@ -1,8 +1,13 @@
 import React from 'react';
 import { Map as ReactGlMap, NavigationControl, useControl } from 'react-map-gl';
-import { ScatterplotLayer } from 'deck.gl';
+import { GeoJsonLayer, ScatterplotLayer } from 'deck.gl';
 import { MapboxOverlay as DeckOverlay } from '@deck.gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import {
+  AmtrakFeatureProperties,
+  AmtrakResponse,
+  BikeShareFeature,
+} from '@/types';
 
 const INITIAL_VIEW_STATE = {
   longitude: -122.4,
@@ -26,10 +31,21 @@ const onClick = info => {
 
 type MapProps = {
   bikeShareData: BikeShareFeature[];
+  amtrakData: AmtrakResponse;
 };
 
-export const Map: React.FC<MapProps> = ({ bikeShareData }) => {
+export const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
   const layers = [
+    new GeoJsonLayer<AmtrakFeatureProperties>({
+      id: 'GeoJsonLayer',
+      data: amtrakData,
+      stroked: true,
+      filled: true,
+      pickable: true,
+      getFillColor: [160, 160, 180, 200],
+      lineWidthMinPixels: 2,
+      lineWidthMaxPixels: 10,
+    }),
     new ScatterplotLayer({
       id: 'bikeshares',
       data: bikeShareData,

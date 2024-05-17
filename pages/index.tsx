@@ -5,9 +5,11 @@ import theme, { SourceSans } from "@/utils/theme";
 import { useFetchBikeShare } from "@/hooks/useFetchBikeShare";
 import { Panel } from "@/components/panel";
 import { Prototype } from "@/components/prototype";
+import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
 
 export default function Home() {
   const { data: bikeShareData } = useFetchBikeShare();
+  const { data: amtrakData } = useFetchAmtrakRoutes();
 
   return (
     <>
@@ -34,7 +36,7 @@ export default function Home() {
           }
         `}</style>
         <Header />
-        <Prototype bikeShareData={bikeShareData} />
+        <Prototype bikeShareData={bikeShareData} amtrakData={amtrakData} />
       </main>
     </>
   );
