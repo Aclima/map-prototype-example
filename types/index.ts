@@ -1,5 +1,7 @@
+import { FeatureCollection, MultiLineString } from 'geojson';
+
 // https://geodata.bts.gov/datasets/usdot::bikeshare-scooter-systems/api
-type BikeShareFeature = {
+export type BikeShareFeature = {
   scooterct: number;
   docklessct: number;
   asofdate: string;
@@ -45,7 +47,7 @@ type BikeShareFeature = {
   objectid: number;
 };
 
-type BikeShareResponse = {
+export type BikeShareResponse = {
   exceededTransferLimit: boolean;
   features: BikeShareFeature[];
   fields: Record<string, string | number | null>;
@@ -55,3 +57,15 @@ type BikeShareResponse = {
   orjectIdFieldName: string;
   spatialReference: Record<string, number>;
 };
+
+export type AmtrakFeatureProperties = {
+  name: string;
+  SHAPE__Length: number;
+  shape_leng: number;
+  objectid: number;
+};
+
+export type AmtrakResponse = FeatureCollection<
+  MultiLineString,
+  AmtrakFeatureProperties
+>;

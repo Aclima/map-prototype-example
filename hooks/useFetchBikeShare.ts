@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { fetcher } from '@/utils/fetch';
+import { BikeShareResponse } from '@/types';
 
 export const useFetchBikeShare = () => {
   return useSWR<BikeShareResponse>(
