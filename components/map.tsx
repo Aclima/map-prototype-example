@@ -1,8 +1,13 @@
 import React from 'react';
 import { Map as ReactGlMap, NavigationControl, useControl } from 'react-map-gl';
-import { ScatterplotLayer } from 'deck.gl';
+import { GeoJsonLayer, ScatterplotLayer } from 'deck.gl';
 import { MapboxOverlay as DeckOverlay } from '@deck.gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import {
+  AmtrakFeatureProperties,
+  AmtrakResponse,
+  BikeShareFeature,
+} from '@/types';
 
 // this is modified from this deckgl example, just to get a map on the page: https://github.com/visgl/deck.gl/blob/9.0-release/examples/get-started/react/mapbox/app.jsx
 // TODO: add different data, add legend, etc
@@ -32,10 +37,21 @@ const onClick = info => {
 
 type MapProps = {
   bikeShareData: BikeShareFeature[];
+  amtrakData: AmtrakResponse;
 };
 
-export const Map: React.FC<MapProps> = ({ bikeShareData }) => {
+export const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
   const layers = [
+    new GeoJsonLayer<AmtrakFeatureProperties>({
+      id: 'GeoJsonLayer',
+      data: amtrakData,
+      stroked: true,
+      filled: true,
+      pickable: true,
+      getFillColor: [160, 160, 180, 200],
+      lineWidthMinPixels: 2,
+      lineWidthMaxPixels: 10,
+    }),
     new ScatterplotLayer({
       id: 'bikeshares',
       data: bikeShareData,
