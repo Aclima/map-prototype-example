@@ -19,14 +19,12 @@ const MapContainer: React.FC<MapDataResponses> = ({bikeShareData, amtrakData}) =
         div {
           height: 500px;
           width: 100%;
-          min-width: 0;
           order: -1;
           flex-shrink: 0;
           @media (min-width: ${theme.breakpoints.mobile}) {
             order: 0;
             height: 100%;
             flex-grow: 1;
-            overflow: auto;
             width: auto;
           }
         }
