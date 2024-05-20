@@ -1,4 +1,5 @@
 import theme from "@/utils/theme";
+import BikeShareChart from "./bikeShareChart";
 
 const Placeholder = () => {
   return (
@@ -21,8 +22,7 @@ export const Panel: React.FC = () => {
       <p>Put some filters here!</p>
       <Placeholder />
       <h2>Charts</h2>
-      <p>Put some charts here!</p>
-      <Placeholder />
+      <BikeShareChart />
       <style jsx>{`
         div {
           padding: 1rem;

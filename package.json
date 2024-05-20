@@ -10,6 +10,10 @@
     "commit": "commit-wizard"
   },
   "dependencies": {
+    "@visx/group": "^3.3.0",
+    "@visx/mock-data": "^3.3.0",
+    "@visx/scale": "^3.5.0",
+    "@visx/shape": "^3.5.0",
     "deck.gl": "^9.0.14",
     "mapbox-gl": "^3.3.0",
     "next": "14.2.3",
