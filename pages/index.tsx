@@ -1,18 +1,21 @@
-import Head from "next/head";
-import { Map } from "@/components/map";
-import { Header } from "@/components/header";
-import theme, { SourceSans } from "@/utils/theme";
-import { useFetchBikeShare } from "@/hooks/useFetchBikeShare";
-import { Panel } from "@/components/panel";
-import { Prototype } from "@/components/prototype";
+import '@mantine/core/styles.css';
+import Head from 'next/head';
+import { AppShell, MantineProvider } from '@mantine/core';
+
+import { Header } from '@/components/header';
+import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
+import { MapContainer } from '@/components/prototype';
+import { PanelContents } from '@/components/panel';
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
+import { theme } from '../theme';
+import classes from './index.module.css';
 
 export default function Home() {
   const { data: bikeShareData } = useFetchBikeShare();
   const { data: amtrakData } = useFetchAmtrakRoutes();
 
   return (
-    <>
+    <MantineProvider theme={theme}>
       <Head>
         <title>Map Prototype Example</title>
         <meta
@@ -22,22 +25,33 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={SourceSans.className}>
-        <style jsx global>{`
-          body {
-            margin: 0;
-            color: ${theme.colors.textGray};
-          }
-        `}</style>
-        <style jsx>{`
-          main {
-            width: 100%;
-            height: 100vh;
-          }
-        `}</style>
-        <Header />
-        <Prototype bikeShareData={bikeShareData} amtrakData={amtrakData} />
-      </main>
-    </>
+      <style jsx global>{`
+        body {
+          margin: 0;
+          color: ${theme.colors.gray[9]};
+        }
+      `}</style>
+      <AppShell
+        navbar={{ width: '300', breakpoint: 'sm', collapsed: { mobile: true } }}
+        header={{ height: 75 }}>
+        <AppShell.Header className={classes.header}>
+          <Header />
+        </AppShell.Header>
+        <AppShell.Navbar>
+          <PanelContents />
+        </AppShell.Navbar>
+        <AppShell.Main className={classes.main}>
+          <div className={classes.mapContainer}>
+            <MapContainer
+              bikeShareData={bikeShareData}
+              amtrakData={amtrakData}
+            />
+          </div>
+          <div className={`mantine-hidden-from-sm ${classes.panel}`}>
+            <PanelContents />
+          </div>
+        </AppShell.Main>
+      </AppShell>
+    </MantineProvider>
   );
 }
