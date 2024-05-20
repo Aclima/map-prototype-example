@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppShell } from '@mantine/core';
-import { PanelContents } from './panel';
-import { Map } from './map';
+import { PanelContents } from '../panel/panel';
+import { Map } from '../map/map';
 import { AmtrakResponse, BikeShareResponse } from '@/types';
 import classes from './prototype.module.css';
 

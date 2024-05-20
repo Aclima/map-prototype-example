@@ -2,10 +2,10 @@ import '@mantine/core/styles.css';
 import Head from 'next/head';
 import { AppShell, MantineProvider } from '@mantine/core';
 
-import { Header } from '@/components/header';
+import { Header } from '@/components/header/header';
 import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
-import { MapContainer } from '@/components/prototype';
-import { PanelContents } from '@/components/panel';
+import { MapContainer } from '@/components/prototype/prototype';
+import { PanelContents } from '@/components/panel/panel';
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
 import { theme } from '../theme';
 import classes from './index.module.css';
@@ -25,12 +25,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <style jsx global>{`
-        body {
-          margin: 0;
-          color: ${theme.colors.gray[9]};
-        }
-      `}</style>
       <AppShell
         navbar={{ width: '300', breakpoint: 'sm', collapsed: { mobile: true } }}
         header={{ height: 75 }}>
