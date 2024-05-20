@@ -1,7 +1,16 @@
 import { theme } from '../theme';
 
 const Placeholder = () => {
-  return <div></div>;
+  return (
+    <div>
+      <style jsx>{`
+        div {
+          height: 200px;
+          background-color: #fff;
+        }
+      `}</style>
+    </div>
+  );
 };
 
 export const PanelContents: React.FC = () => {
