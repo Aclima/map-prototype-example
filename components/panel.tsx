@@ -1,20 +1,10 @@
-import theme from "@/utils/theme";
+import { theme } from '../theme';
 
 const Placeholder = () => {
-  return (
-    <div>
-      <style jsx>{`
-        div {
-          width: 300px;
-          height: 200px;
-          background-color: #fff;
-        }
-      `}</style>
-    </div>
-  );
+  return <div></div>;
 };
 
-export const Panel: React.FC = () => {
+export const PanelContents: React.FC = () => {
   return (
     <div>
       <h2>Filters</h2>
@@ -25,13 +15,8 @@ export const Panel: React.FC = () => {
       <Placeholder />
       <style jsx>{`
         div {
-          padding: 1rem;
-          background-color: ${theme.colors.backgroundGray};
-
-          @media (min-width: ${theme.breakpoints.mobile}) {
-            width: 30%;
-            min-width: 350px;
-          }
+          background-color: ${theme.colors.gray[0]};
+          height: 100%;
         }
         h2 {
           margin: 0;

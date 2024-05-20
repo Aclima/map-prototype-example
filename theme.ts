@@ -1,4 +1,13 @@
 import { createTheme } from '@mantine/core';
+import { Source_Sans_3 } from 'next/font/google';
+
+export const SourceSans = Source_Sans_3({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-source-sans',
+});
+
+const SourceSansFont = SourceSans.style.fontFamily;
 
 export const theme = createTheme({
   colors: {
@@ -18,4 +27,5 @@ export const theme = createTheme({
   breakpoints: {
     sm: '600px',
   },
+  fontFamily: SourceSansFont,
 });

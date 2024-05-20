@@ -3,11 +3,12 @@ import Head from 'next/head';
 import { AppShell, MantineProvider } from '@mantine/core';
 
 import { Header } from '@/components/header';
-import { SourceSans } from '@/utils/theme';
 import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
-import { Prototype } from '@/components/prototype';
+import { MapContainer } from '@/components/prototype';
+import { PanelContents } from '@/components/panel';
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
 import { theme } from '../theme';
+import classes from './index.module.css';
 
 export default function Home() {
   const { data: bikeShareData } = useFetchBikeShare();
@@ -24,23 +25,24 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <AppShell>
-        <main className={SourceSans.className}>
-          <style jsx global>{`
-            body {
-              margin: 0;
-              color: ${theme.colors.textGray};
-            }
-          `}</style>
-          <style jsx>{`
-            main {
-              width: 100%;
-              height: 100vh;
-            }
-          `}</style>
+      <style jsx global>{`
+        body {
+          margin: 0;
+          color: ${theme.colors.gray[9]};
+        }
+      `}</style>
+      <AppShell
+        navbar={{ width: '300', breakpoint: 'sm' }}
+        header={{ height: 75 }}>
+        <AppShell.Header className={classes.header}>
           <Header />
-          <Prototype bikeShareData={bikeShareData} amtrakData={amtrakData} />
-        </main>
+        </AppShell.Header>
+        <AppShell.Navbar>
+          <PanelContents />
+        </AppShell.Navbar>
+        <AppShell.Main className={classes.main}>
+          <MapContainer bikeShareData={bikeShareData} amtrakData={amtrakData} />
+        </AppShell.Main>
       </AppShell>
     </MantineProvider>
   );
