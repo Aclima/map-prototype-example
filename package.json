@@ -10,6 +10,7 @@
     "commit": "commit-wizard"
   },
   "dependencies": {
+    "@visx/axis": "^3.10.1",
     "@visx/group": "^3.3.0",
     "@visx/mock-data": "^3.3.0",
     "@visx/scale": "^3.5.0",
