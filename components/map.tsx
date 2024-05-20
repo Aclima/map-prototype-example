@@ -64,19 +64,12 @@ export const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
   ];
 
   return (
-      <ReactGlMap
-        initialViewState={INITIAL_VIEW_STATE}
-        mapStyle={MAP_STYLE}
-        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-      >
-        <DeckGLOverlay layers={layers} />
-        <NavigationControl position="bottom-right" />
-        <style jsx>{`
-          div {
-            height: 100%;
-            width: 100%;
-          }
-        `}</style>
-      </ReactGlMap>
+    <ReactGlMap
+      initialViewState={INITIAL_VIEW_STATE}
+      mapStyle={MAP_STYLE}
+      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}>
+      <DeckGLOverlay layers={layers} />
+      <NavigationControl position="bottom-right" />
+    </ReactGlMap>
   );
 };

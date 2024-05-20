@@ -41,7 +41,12 @@ export default function Home() {
           <PanelContents />
         </AppShell.Navbar>
         <AppShell.Main className={classes.main}>
-          <MapContainer bikeShareData={bikeShareData} amtrakData={amtrakData} />
+          <div className={classes.mapContainer}>
+            <MapContainer
+              bikeShareData={bikeShareData}
+              amtrakData={amtrakData}
+            />
+          </div>
           <div className="mantine-hidden-from-sm">
             <PanelContents />
           </div>

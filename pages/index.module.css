@@ -15,3 +15,11 @@
     justify-content: left;
   }
 }
+
+.mapContainer {
+  height: 50%;
+  width: 100%;
+  @media (min-width: $mantine-breakpoint-xs) {
+    height: 100%;
+  }
+}

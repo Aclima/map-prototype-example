@@ -26,6 +26,7 @@ export const PanelContents: React.FC = () => {
         div {
           background-color: ${theme.colors.gray[0]};
           height: 100%;
+          padding: 0 1rem;
         }
         h2 {
           margin: 0;
