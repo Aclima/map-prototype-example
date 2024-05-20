@@ -2,10 +2,10 @@ import '@mantine/core/styles.css';
 import Head from 'next/head';
 import { AppShell, MantineProvider } from '@mantine/core';
 
-import { Map } from '@/components/map';
 import { Header } from '@/components/header';
 import { SourceSans } from '@/utils/theme';
 import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
+import { Prototype } from '@/components/prototype';
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
 import { theme } from '../theme';
 
@@ -29,22 +29,17 @@ export default function Home() {
           <style jsx global>{`
             body {
               margin: 0;
-              color: ${theme.colors.gray[9]};
+              color: ${theme.colors.textGray};
             }
           `}</style>
-          <Header />
           <style jsx>{`
             main {
               width: 100%;
               height: 100vh;
             }
           `}</style>
-          <Map
-            bikeShareData={bikeShareData?.features ?? []}
-            amtrakData={
-              amtrakData ?? { type: 'FeatureCollection', features: [] }
-            }
-          />
+          <Header />
+          <Prototype bikeShareData={bikeShareData} amtrakData={amtrakData} />
         </main>
       </AppShell>
     </MantineProvider>
