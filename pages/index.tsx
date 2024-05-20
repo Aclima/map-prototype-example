@@ -32,7 +32,7 @@ export default function Home() {
         }
       `}</style>
       <AppShell
-        navbar={{ width: '300', breakpoint: 'sm' }}
+        navbar={{ width: '300', breakpoint: 'sm', collapsed: { mobile: true } }}
         header={{ height: 75 }}>
         <AppShell.Header className={classes.header}>
           <Header />
@@ -42,6 +42,9 @@ export default function Home() {
         </AppShell.Navbar>
         <AppShell.Main className={classes.main}>
           <MapContainer bikeShareData={bikeShareData} amtrakData={amtrakData} />
+          <div className="mantine-hidden-from-sm">
+            <PanelContents />
+          </div>
         </AppShell.Main>
       </AppShell>
     </MantineProvider>
