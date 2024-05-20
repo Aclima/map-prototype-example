@@ -1,8 +1,10 @@
-import Head from 'next/head';
-import { Map } from '@/components/map';
-import { Header } from '@/components/header';
-import theme, { SourceSans } from '@/utils/theme';
-import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
+import Head from "next/head";
+import { Map } from "@/components/map";
+import { Header } from "@/components/header";
+import theme, { SourceSans } from "@/utils/theme";
+import { useFetchBikeShare } from "@/hooks/useFetchBikeShare";
+import { Panel } from "@/components/panel";
+import { Prototype } from "@/components/prototype";
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
 
 export default function Home() {
@@ -27,17 +29,14 @@ export default function Home() {
             color: ${theme.colors.textGray};
           }
         `}</style>
-        <Header />
         <style jsx>{`
           main {
             width: 100%;
             height: 100vh;
           }
         `}</style>
-        <Map
-          bikeShareData={bikeShareData?.features ?? []}
-          amtrakData={amtrakData ?? { type: 'FeatureCollection', features: [] }}
-        />
+        <Header />
+        <Prototype bikeShareData={bikeShareData} amtrakData={amtrakData} />
       </main>
     </>
   );
