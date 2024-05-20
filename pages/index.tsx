@@ -24,26 +24,29 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <AppShell></AppShell>
-      <main className={SourceSans.className}>
-        <style jsx global>{`
-          body {
-            margin: 0;
-            color: ${theme.colors.gray[9]};
-          }
-        `}</style>
-        <Header />
-        <style jsx>{`
-          main {
-            width: 100%;
-            height: 100vh;
-          }
-        `}</style>
-        <Map
-          bikeShareData={bikeShareData?.features ?? []}
-          amtrakData={amtrakData ?? { type: 'FeatureCollection', features: [] }}
-        />
-      </main>
+      <AppShell>
+        <main className={SourceSans.className}>
+          <style jsx global>{`
+            body {
+              margin: 0;
+              color: ${theme.colors.gray[9]};
+            }
+          `}</style>
+          <Header />
+          <style jsx>{`
+            main {
+              width: 100%;
+              height: 100vh;
+            }
+          `}</style>
+          <Map
+            bikeShareData={bikeShareData?.features ?? []}
+            amtrakData={
+              amtrakData ?? { type: 'FeatureCollection', features: [] }
+            }
+          />
+        </main>
+      </AppShell>
     </MantineProvider>
   );
 }
