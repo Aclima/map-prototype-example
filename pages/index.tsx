@@ -47,7 +47,7 @@ export default function Home() {
               amtrakData={amtrakData}
             />
           </div>
-          <div className="mantine-hidden-from-sm">
+          <div className={`mantine-hidden-from-sm ${classes.panel}`}>
             <PanelContents />
           </div>
         </AppShell.Main>
