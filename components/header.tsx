@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { Group } from '@mantine/core';
 
 import logo from '../public/aclima-logo.svg';
-import classes from './header.module.css';
 
 export const Header: React.FC = () => {
   return (
