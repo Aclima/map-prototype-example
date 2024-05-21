@@ -34,7 +34,7 @@ type MapProps = {
   amtrakData: AmtrakResponse;
 };
 
-export const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
+const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
   const layers = [
     new GeoJsonLayer<AmtrakFeatureProperties>({
       id: 'GeoJsonLayer',
@@ -73,3 +73,5 @@ export const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
     </ReactGlMap>
   );
 };
+
+export default Map;
