@@ -13,6 +13,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Make sure you have node 18 installed. We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage npm versions, but you can also install node 18 [here](https://nodejs.org/en/download/package-manager).
 
+You can clone this template from Github or using the create-next-app CLI.
+
+### Github Template
+
+Use the following [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template) to create a new repository from this template.
+
+### create-next-app
+
 Create a clone of the repository with:
 
 ```bash
