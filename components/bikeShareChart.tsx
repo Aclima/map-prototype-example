@@ -1,5 +1,5 @@
 import { useFetchBikeShare } from "@/hooks/useFetchBikeShare";
-import { AxisBottom } from "@visx/axis";
+import { AxisLeft, AxisTop } from "@visx/axis";
 import { Group } from "@visx/group";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { Bar } from "@visx/shape";
@@ -24,12 +24,12 @@ const parseBikeSharesByState = (data) => {
 };
 
 const width = 350;
-const height = 200;
-const margin = { top: 10, bottom: 40, left: 10, right: 10 };
+const height = 500;
+const margin = { top: 20, bottom: 10, left: 60, right: 10 };
 const xMax = width - margin.left - margin.right;
 const yMax = height - margin.top - margin.bottom;
-const x = (d) => d.state;
-const y = (d) => d.count;
+const x = (d) => d.count;
+const y = (d) => d.state;
 
 const BikeShareChart: React.FC = () => {
   const { data } = useFetchBikeShare();
@@ -37,16 +37,16 @@ const BikeShareChart: React.FC = () => {
     return null;
   }
   const chartData = parseBikeSharesByState(data);
-  const xScale = scaleBand({
+  const yScale = scaleBand({
+    range: [0, yMax],
+    round: true,
+    domain: chartData.map(y),
+    padding: 0.3,
+  });
+  const xScale = scaleLinear({
     range: [0, xMax],
     round: true,
-    domain: chartData.map(x),
-    padding: 0.4,
-  });
-  const yScale = scaleLinear({
-    range: [yMax, 0],
-    round: true,
-    domain: [0, Math.max(...chartData.map(y))],
+    domain: [0, Math.max(...chartData.map(x))],
   });
   const compose = (scale, accessor) => (data) => scale(accessor(data));
   const xPoint = compose(xScale, x);
@@ -61,28 +61,46 @@ const BikeShareChart: React.FC = () => {
       `}</style>
       <svg width={width} height={height}>
         <Group>
-          {chartData.map((d) => {
-            const barHeight = yMax - yPoint(d);
+          {chartData.map((d, i) => {
+            if (i===0) {
+                console.log(d);
+                console.log("xmax", xMax);
+                console.log("xpoint", xPoint(d));
+            }
             return (
               <Bar
-                x={xPoint(d)}
-                y={yMax - barHeight}
-                height={barHeight}
-                width={xScale.bandwidth()}
+                x={margin.left}
+                y={yPoint(d) + margin.top}
+                height={yScale.bandwidth()}
+                width={xPoint(d)}
                 fill="#fc2e1c"
                 key={d.state}
               />
             );
           })}
-          <AxisBottom
-            scale={xScale}
-            top={yMax + margin.top}
-            numTicks={chartData.length}
+          <AxisLeft
+            scale={yScale}
             label="State"
+            stroke="#000000"
+            tickStroke="#000000"
+            numTicks={chartData.length}
+            left={margin.left}
+            top={margin.top}
+            tickLabelProps={() => ({
+              fill: "#000000",
+              fontSize: 8,
+              textAnchor: "end",
+            })}
+          />
+          <AxisTop
+            top={40}
+            left={margin.left}
+            scale={xScale}
+            label="Bikeshare Count"
             stroke="#000000"
             tickLabelProps={() => ({
               fill: "#000000",
-              fontSize: 5,
+              fontSize: 11,
             })}
           />
         </Group>
