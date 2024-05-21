@@ -1,4 +1,5 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The goal of this repo is to be a template that can be cloned and modified to provide a good standard base for geospatial product prototypes. To that end we've included some example code and set up what we think are reasonable defaults for:
+
 - a map & map layers
 - charts
 - mobile-first styling
@@ -9,9 +10,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - filtering
 
 ## Getting Started
+
 Make sure you have node 18 installed. We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage npm versions, but you can also install node 18 [here](https://nodejs.org/en/download/package-manager).
 
 Install the project dependencies:
+
 ```bash
 npm i
 ```
@@ -30,6 +33,20 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-
 ## Deploy on Vercel
+
 The example app will be deployed on vercel automatically -- you'll see a link in github to preview deployments when you open a PR, and production will be deployed automatically on commits to `main`.
+
+## Analytics
+
+### Google Anaytics
+
+Google Analytics is set up for the Prototype Template site, but follow the following [steps](https://support.google.com/analytics/answer/9304153?hl=en) to set it up for the prototype you are building from this template.
+
+Once the property is set up in Google Analytics, copy the measurment ID. Add an environment variable to the Vercel project (settings -> environment variables) with the key `GA_TRACKING_ID` and the value of the measurement ID. The ID will be picked up in the next deployment.
+
+### Mixpanel
+
+`mixpanel-browser` is installed in the template but needs to be commented back in for usage. To use Mixpanel, follow these [instructions](https://docs.mixpanel.com/docs/orgs-and-projects/managing-projects#creating-projects) to create a new Mixpanel project.
+
+Once you have a mixpanel project, copy the project token, and add it as an environment variable to your Vercel project under the key `MIXPANEL_PROJECT_TOKEN`. Uncomment the code in `_app.tsx` and `analytics.ts`. Use the `logEvent` function to log events to Mixpanel.
