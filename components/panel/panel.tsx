@@ -1,6 +1,4 @@
 import BikeShareChart from '../bikeShareChart';
-import BikeShareChartMantine from '../bikeShareChartMantine';
-import BikeShareChartRechart from '../bikeShareRechart';
 import classes from './panel.module.css';
 
 const Placeholder = () => {
@@ -15,8 +13,6 @@ const PanelContents: React.FC = () => {
       <Placeholder />
       <h2>Charts</h2>
       <BikeShareChart />
-      <BikeShareChartMantine />
-      <BikeShareChartRechart />
     </div>
   );
 };
