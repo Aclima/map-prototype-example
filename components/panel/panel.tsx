@@ -1,4 +1,3 @@
-import { theme } from '../../theme';
 import classes from './panel.module.css';
 
 const Placeholder = () => {
