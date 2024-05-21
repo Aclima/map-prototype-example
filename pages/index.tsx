@@ -1,10 +1,12 @@
 import '@mantine/core/styles.css';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import { AppShell, MantineProvider } from '@mantine/core';
 
 import Header from '@/components/header/header';
 import PanelContents from '@/components/panel/panel';
 import Map from '@/components/map/map';
+import { BIKE_SHARE_TYPES } from '@/constants.ts';
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
 import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
 import { theme } from '../theme';
@@ -13,6 +15,26 @@ import classes from './index.module.css';
 export default function Home() {
   const { data: bikeShareData } = useFetchBikeShare();
   const { data: amtrakData } = useFetchAmtrakRoutes();
+
+  const [filteredBikeShareData, setFilteredBikeShareData] = useState([]);
+  const [selectedBikeShareTypes, setSelectedBikeShareTypes] = useState(
+    BIKE_SHARE_TYPES.map(type => type.value),
+  );
+
+  useEffect(() => {
+    if (bikeShareData?.features) {
+      setFilteredBikeShareData(bikeShareData.features);
+    }
+  }, [bikeShareData]);
+
+  useEffect(() => {
+    if (bikeShareData?.features) {
+      const filteredData = bikeShareData.features.filter(feature => {
+        return selectedBikeShareTypes.includes(feature.attributes.type);
+      });
+      setFilteredBikeShareData(filteredData);
+    }
+  }, [bikeShareData?.features, selectedBikeShareTypes]);
 
   return (
     <MantineProvider theme={theme}>
@@ -32,19 +54,25 @@ export default function Home() {
           <Header />
         </AppShell.Header>
         <AppShell.Navbar>
-          <PanelContents />
+          <PanelContents
+            bikeShareTypes={selectedBikeShareTypes}
+            handleBikeShareTypes={setSelectedBikeShareTypes}
+          />
         </AppShell.Navbar>
         <AppShell.Main className={classes.main}>
           <div className={classes.mapContainer}>
             <Map
-              bikeShareData={bikeShareData?.features ?? []}
+              bikeShareData={filteredBikeShareData}
               amtrakData={
                 amtrakData ?? { type: 'FeatureCollection', features: [] }
               }
             />
           </div>
           <div className={`mantine-hidden-from-sm ${classes.panel}`}>
-            <PanelContents />
+            <PanelContents
+              bikeShareTypes={selectedBikeShareTypes}
+              handleBikeShareTypes={setSelectedBikeShareTypes}
+            />
           </div>
         </AppShell.Main>
       </AppShell>
