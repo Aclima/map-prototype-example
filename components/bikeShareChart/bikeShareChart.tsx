@@ -1,5 +1,6 @@
 import { useFetchBikeShare } from "@/hooks/useFetchBikeShare";
 import { BarChart } from "@mantine/charts";
+import classes from "./bikeShareChart.module.css";
 
 const parseBikeSharesByState = (data) => {
   const stateAggregatedData = data.features.reduce((acc, feature) => {
@@ -27,19 +28,31 @@ const BikeShareChart: React.FC = () => {
   }
   const chartData = parseBikeSharesByState(data);
   return (
-    <BarChart
-      h={575}
-      data={chartData}
-      dataKey="state"
-      tickLine="y"
-      orientation="vertical"
-      xAxisLabel="Count"
-      yAxisLabel="State"
-      xAxisProps={{ orientation: "top", height: 100}}
-      yAxisProps={{ interval: 0, padding: { top: 25}}}
-      gridAxis="y"
-      series={[{ name: "count", color: "red" }]}
-    />
+    <div className={classes.chart}>
+      <BarChart
+        h={600}
+        data={chartData}
+        dataKey="state"
+        tickLine="y"
+        orientation="vertical"
+        xAxisProps={{
+          orientation: "top",
+          label: { position: "insideTop", offset: 0, value: "Count" },
+        }}
+        yAxisProps={{
+          interval: 0,
+          padding: { top: 5 },
+          label: {
+            position: "insideLeft",
+            offset: 5,
+            value: "State",
+            angle: -90,
+          },
+        }}
+        gridAxis="y"
+        series={[{ name: "count", color: "orange" }]}
+      />
+    </div>
   );
 };
 
