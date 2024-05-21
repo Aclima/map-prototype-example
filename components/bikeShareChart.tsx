@@ -24,7 +24,7 @@ const parseBikeSharesByState = (data) => {
 };
 
 const width = 350;
-const height = 500;
+const height = 550;
 const margin = { top: 20, bottom: 10, left: 60, right: 10 };
 const xMax = width - margin.left - margin.right;
 const yMax = height - margin.top - margin.bottom;
