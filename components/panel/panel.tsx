@@ -1,16 +1,26 @@
 import BikeShareChart from '../bikeShareChart';
+import BikeShareTypeFilter from '../bikeShareTypeFilter/bikeShareTypeFilter';
 import classes from './panel.module.css';
 
 const Placeholder = () => {
   return <div className={classes.placeholder} />;
 };
 
-const PanelContents: React.FC = () => {
+type PanelContentsProps = {
+  bikeShareTypes: string[];
+  handleBikeShareTypes: (value: string[]) => void;
+};
+
+const PanelContents: React.FC<PanelContentsProps> = ({
+  bikeShareTypes,
+  handleBikeShareTypes,
+}) => {
   return (
     <div className={classes.panelContents}>
-      <h2>Filters</h2>
-      <p>Put some filters here!</p>
-      <Placeholder />
+      <BikeShareTypeFilter
+        bikeShareTypes={bikeShareTypes}
+        handleBikeShareTypes={handleBikeShareTypes}
+      />
       <h2>Charts</h2>
       <BikeShareChart />
     </div>
