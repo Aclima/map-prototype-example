@@ -3,6 +3,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 // import mixpanel from 'mixpanel-browser';
 
 import '../global.css';
+import "@mantine/charts/styles.css";
 import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
