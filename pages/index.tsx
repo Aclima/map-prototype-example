@@ -2,11 +2,11 @@ import '@mantine/core/styles.css';
 import Head from 'next/head';
 import { AppShell, MantineProvider } from '@mantine/core';
 
-import { Header } from '@/components/header/header';
-import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
-import { MapContainer } from '@/components/prototype/prototype';
-import { PanelContents } from '@/components/panel/panel';
+import Header from '@/components/header/header';
+import PanelContents from '@/components/panel/panel';
+import Map from '@/components/map/map';
 import { useFetchAmtrakRoutes } from '@/hooks/useFetchAmtrakRoutes';
+import { useFetchBikeShare } from '@/hooks/useFetchBikeShare';
 import { theme } from '../theme';
 import classes from './index.module.css';
 
@@ -36,9 +36,11 @@ export default function Home() {
         </AppShell.Navbar>
         <AppShell.Main className={classes.main}>
           <div className={classes.mapContainer}>
-            <MapContainer
-              bikeShareData={bikeShareData}
-              amtrakData={amtrakData}
+            <Map
+              bikeShareData={bikeShareData?.features ?? []}
+              amtrakData={
+                amtrakData ?? { type: 'FeatureCollection', features: [] }
+              }
             />
           </div>
           <div className={`mantine-hidden-from-sm ${classes.panel}`}>

@@ -5,7 +5,7 @@ const Placeholder = () => {
   return <div className={classes.placeholder} />;
 };
 
-export const PanelContents: React.FC = () => {
+const PanelContents: React.FC = () => {
   return (
     <div className={classes.panelContents}>
       <h2>Filters</h2>
@@ -17,3 +17,5 @@ export const PanelContents: React.FC = () => {
     </div>
   );
 };
+
+export default PanelContents;

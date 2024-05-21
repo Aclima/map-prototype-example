@@ -4,7 +4,7 @@ import { Group } from '@mantine/core';
 import logo from '../../public/aclima-logo.svg';
 import classes from './header.module.css';
 
-export const Header: React.FC = () => {
+const Header: React.FC = () => {
   return (
     <Group className={classes.header}>
       <Image src={logo} alt="Aclima logo" />
@@ -12,3 +12,5 @@ export const Header: React.FC = () => {
     </Group>
   );
 };
+
+export default Header;
