@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Map as ReactGlMap, NavigationControl, useControl } from 'react-map-gl';
-import { GeoJsonLayer, ScatterplotLayer } from 'deck.gl';
+import { GeoJsonLayer, PickingInfo, ScatterplotLayer } from 'deck.gl';
 import { MapboxOverlay as DeckOverlay } from '@deck.gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {
@@ -22,26 +22,26 @@ const DeckGLOverlay = props => {
   return null;
 };
 
-const onClick = info => {
-  if (info.object) {
-    // eslint-disable-next-line
-    alert(`${info.object.properties.name} (${info.object.properties.abbrev})`);
-  }
-};
-
 type MapProps = {
   bikeShareData: BikeShareFeature[];
   amtrakData: AmtrakResponse;
 };
 
 const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
+  const getTooltip = useCallback(
+    ({ object }: PickingInfo<BikeShareFeature>) => {
+      const details = [object?.attributes?.docklessnm, object?.attributes?.docknm, object?.attributes?.scooternm].filter(detail => !!detail);
+      return object && `${object.attributes.type} \n ${details.join('\n')}`;
+    },
+    []
+  );
   const layers = [
     new GeoJsonLayer<AmtrakFeatureProperties>({
       id: 'GeoJsonLayer',
       data: amtrakData,
       stroked: true,
       filled: true,
-      pickable: true,
+      pickable: false,
       getFillColor: [160, 160, 180, 200],
       lineWidthMinPixels: 2,
       lineWidthMaxPixels: 10,
@@ -59,7 +59,6 @@ const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
       // Interactive props
       pickable: true,
       autoHighlight: true,
-      onClick,
     }),
   ];
 
@@ -67,8 +66,9 @@ const Map: React.FC<MapProps> = ({ bikeShareData, amtrakData }) => {
     <ReactGlMap
       initialViewState={INITIAL_VIEW_STATE}
       mapStyle={MAP_STYLE}
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}>
-      <DeckGLOverlay layers={layers} />
+      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+    >
+      <DeckGLOverlay layers={layers} getTooltip={getTooltip}/>
       <NavigationControl position="bottom-right" />
     </ReactGlMap>
   );

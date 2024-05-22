@@ -13,11 +13,12 @@ const PanelContents: React.FC<PanelContentsProps> = ({
 }) => {
   return (
     <div className={classes.panelContents}>
+      <h3>Filters</h3>
       <BikeShareTypeFilter
         bikeShareTypes={bikeShareTypes}
         handleBikeShareTypes={handleBikeShareTypes}
       />
-      <h2>Stats</h2>
+      <h3>Stats</h3>
       <p>Number of bike shares by state</p>
       <BikeShareChart />
     </div>
