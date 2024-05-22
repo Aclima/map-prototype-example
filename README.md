@@ -1,12 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The goal of this repo is to be a template that can be cloned and modified to provide a good standard base for geospatial product prototypes. To that end we've included some example code and set up what we think are reasonable defaults for:
 
-- a map & map layers
-- charts
+- [a map & map layers](https://deck.gl/)
+- [charts](https://mantine.dev/charts/getting-started/)
 - mobile-first styling
-- a component library
-- linting
-- fetching data
-- analytics
+- [a component library](https://mantine.dev)
+- [linting](https://eslint.org/)
+- [fetching data](https://swr.vercel.app/)
+- [analytics](#analytics)
 - filtering
 
 ## Getting Started
