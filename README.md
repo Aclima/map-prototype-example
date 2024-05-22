@@ -13,13 +13,23 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Make sure you have node 18 installed. We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage npm versions, but you can also install node 18 [here](https://nodejs.org/en/download/package-manager).
 
-Install the project dependencies:
+You can clone this template from Github or using the create-next-app CLI.
+
+### Github Template
+
+Use the following [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template) to create a new repository from this template.
+
+### create-next-app
+
+Create a clone of the repository with:
 
 ```bash
-npm i
+npx create-next-app@latest -e https://github.com/Aclima/map-prototype-example
 ```
 
-First, run the development server:
+Add a .env file and the necessary environment variables.
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -30,8 +40,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Deploy on Vercel
 
