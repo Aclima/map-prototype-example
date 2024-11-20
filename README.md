@@ -51,10 +51,10 @@ The example app will be deployed on vercel automatically -- you'll see a link in
 
 Google Analytics is set up for the Prototype Template site, but follow the following [steps](https://support.google.com/analytics/answer/9304153?hl=en) to set it up for the prototype you are building from this template.
 
-Once the property is set up in Google Analytics, copy the measurment ID. Add an environment variable to the Vercel project (settings -> environment variables) with the key `GA_TRACKING_ID` and the value of the measurement ID. The ID will be picked up in the next deployment.
+Once the property is set up in Google Analytics, copy the measurment ID. Add an environment variable to the Vercel project (settings -> environment variables) with the key `NEXT_PUBLIC_GA_TRACKING_ID` and the value of the measurement ID. The ID will be picked up in the next deployment.
 
 ### Mixpanel
 
 `mixpanel-browser` is installed in the template but needs to be commented back in for usage. To use Mixpanel, follow these [instructions](https://docs.mixpanel.com/docs/orgs-and-projects/managing-projects#creating-projects) to create a new Mixpanel project.
 
-Once you have a mixpanel project, copy the project token, and add it as an environment variable to your Vercel project under the key `MIXPANEL_PROJECT_TOKEN`. Uncomment the code in `_app.tsx` and `analytics.ts`. Use the `logEvent` function to log events to Mixpanel.
+Once you have a mixpanel project, copy the project token, and add it as an environment variable to your Vercel project under the key `NEXT_PUBLIC_MIXPANEL_PROJECT_TOKEN`. Uncomment the code in `_app.tsx` and `analytics.ts`. Use the `logEvent` function to log events to Mixpanel.
