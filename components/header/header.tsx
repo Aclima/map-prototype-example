@@ -4,11 +4,15 @@ import { Group } from '@mantine/core';
 import logo from '../../public/aclima-logo.svg';
 import classes from './header.module.css';
 
-const Header: React.FC = () => {
+type TitleProps = {
+  title: string;
+};
+
+const Header: React.FC<TitleProps> = ({ title }) => {
   return (
     <Group className={classes.header}>
       <Image src={logo} alt="Aclima logo" />
-      <h1>Example Prototype</h1>
+      <h1>{title}</h1>
     </Group>
   );
 };

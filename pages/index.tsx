@@ -51,7 +51,7 @@ export default function Home() {
         navbar={{ width: '300', breakpoint: 'sm', collapsed: { mobile: true } }}
         header={{ height: 75 }}>
         <AppShell.Header className={classes.header}>
-          <Header />
+          <Header title="Example Prototype" />
         </AppShell.Header>
         <AppShell.Navbar>
           <PanelContents
