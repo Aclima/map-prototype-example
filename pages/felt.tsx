@@ -3,12 +3,13 @@ import Head from 'next/head';
 import { AppShell, MantineProvider } from '@mantine/core';
 
 import Header from '@/components/header/header';
+import Layers from '@/components/layers/layers';
 import { theme } from '../theme';
 import classes from './index.module.css';
-import { useFeltEmbed } from '../utils/felt';
+import { FeltContext, useFeltEmbed } from '../utils/felt';
 
 export default function FeltPage() {
-  const { mapRef } = useFeltEmbed('tU8naOiiRHO6SeyJbZMujD', {
+  const { felt, mapRef } = useFeltEmbed('tU8naOiiRHO6SeyJbZMujD', {
     uiControls: {
       cooperativeGestures: false,
       fullScreenButton: false,
@@ -33,7 +34,11 @@ export default function FeltPage() {
         <AppShell.Header className={classes.header}>
           <Header title="Felt Prototype" />
         </AppShell.Header>
-        <AppShell.Navbar></AppShell.Navbar>
+        <AppShell.Navbar>
+          <FeltContext.Provider value={felt}>
+            <Layers />
+          </FeltContext.Provider>
+        </AppShell.Navbar>
         <AppShell.Main className={classes.main}>
           <div className={classes.mapContainer} ref={mapRef} />
         </AppShell.Main>

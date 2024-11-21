@@ -15,6 +15,7 @@
     "@mantine/core": "^7.9.2",
     "@mantine/hooks": "^7.9.2",
     "@next/third-parties": "^14.2.3",
+    "@tabler/icons-react": "^3.22.0",
     "deck.gl": "^9.0.14",
     "mapbox-gl": "^3.3.0",
     "mixpanel-browser": "^2.50.0",
