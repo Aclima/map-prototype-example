@@ -1,5 +1,5 @@
+import { useCallback } from 'react';
 import {
-  Collapse,
   Title,
   Group,
   ActionIcon,
@@ -16,7 +16,7 @@ import { assembleLayerTree, useFelt, useLiveLayer } from '../../utils/felt';
 const Layers: React.FC = () => {
   const felt = useFelt();
 
-  const fetchLayersAndGroups = async () => {
+  const fetchLayersAndGroups = useCallback(async () => {
     const [layers, layerGroups] = await Promise.all([
       felt.getLayers().then(layers => layers.filter(Boolean) as Layer[]),
       felt
@@ -24,7 +24,7 @@ const Layers: React.FC = () => {
         .then(groups => groups.filter(Boolean) as LayerGroup[]),
     ]);
     return assembleLayerTree(layers, layerGroups);
-  };
+  }, [felt]);
 
   const layersQuery = useSWR('layers', fetchLayersAndGroups);
 
