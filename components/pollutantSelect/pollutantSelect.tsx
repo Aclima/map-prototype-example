@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { use, useCallback, useMemo, useState } from 'react';
 import { Select } from '@mantine/core';
 import { Layer, LayerGroup } from '@feltmaps/js-sdk';
 import useSWR from 'swr';
@@ -19,6 +19,13 @@ export const POLLUTANTS = {
   voc: { value: 'voc', label: 'Volatile Organic Compounds', html: 'VOC' },
   o3: { value: 'o3', label: 'Ozone', html: 'O<sub>3</sub>' },
 };
+
+type Pollutant = {
+  value: string;
+  label: string;
+  layerIds: string[];
+};
+
 const PollutantSelect = () => {
   const [value, setValue] = useState<string | null>('blackcarbon');
 
@@ -36,27 +43,59 @@ const PollutantSelect = () => {
 
   const layersQuery = useSWR('layers', fetchLayersAndGroups);
 
-  const pollutantLayers = useMemo(() => {
+  const pollutantLayers: Pollutant[] = useMemo(() => {
     if (!layersQuery.data) return [];
 
     const pollutantsInMap = layersQuery.data.reduce((accum, item) => {
-      item.type === 'layer' && item.layer.name in POLLUTANTS
-        ? accum.push(item.layer.name)
+      item.type === 'layer' &&
+      Object.keys(POLLUTANTS).some(key => item.layer.name.includes(key))
+        ? accum.push({ name: item.layer.name, id: item.layer.id })
         : null;
       return accum;
     }, []);
 
-    return Object.values(POLLUTANTS).filter(pollutant => {
-      return pollutantsInMap.includes(pollutant.value);
-    });
+    return Object.values(POLLUTANTS).reduce((accum, pollutant) => {
+      const layers = pollutantsInMap.filter(({ name }) =>
+        name.includes(pollutant.value),
+      );
+
+      if (layers.length) {
+        accum.push({
+          value: pollutant.value,
+          label: pollutant.label,
+          layerIds: layers.map(({ id }) => id),
+        });
+      }
+
+      return accum;
+    }, []);
   }, [layersQuery.data]);
+
+  const handlePollutantChange = useCallback(
+    (_value: string, option: Pollutant) => {
+      setValue(_value);
+      option.layerIds.forEach(layerId => {
+        felt.setLayerVisibility({ show: [layerId] });
+      });
+
+      pollutantLayers.forEach(({ value, layerIds }) => {
+        if (value !== _value) {
+          layerIds.forEach(layerId => {
+            felt.setLayerVisibility({ hide: [layerId] });
+          });
+        }
+      });
+    },
+    [pollutantLayers, felt],
+  );
 
   return (
     <Select
       data={pollutantLayers ?? []}
       value={value}
-      onChange={setValue}
+      onChange={handlePollutantChange}
       label="Select Pollutant"
+      allowDeselect={false}
     />
   );
 };
