@@ -1,9 +1,7 @@
-import { use, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Select } from '@mantine/core';
-import { Layer, LayerGroup } from '@feltmaps/js-sdk';
-import useSWR from 'swr';
 
-import { assembleLayerTree, useFelt } from '@/utils/felt';
+import { useFelt, useFeltLayers } from '@/utils/felt';
 
 export const POLLUTANTS = {
   ['pm_2.5']: {
@@ -28,25 +26,13 @@ type Pollutant = {
 
 const PollutantSelect = () => {
   const [value, setValue] = useState<string | null>('blackcarbon');
-
+  const feltLayers = useFeltLayers();
   const felt = useFelt();
 
-  const fetchLayersAndGroups = useCallback(async () => {
-    const [layers, layerGroups] = await Promise.all([
-      felt.getLayers().then(layers => layers.filter(Boolean) as Layer[]),
-      felt
-        .getLayerGroups()
-        .then(groups => groups.filter(Boolean) as LayerGroup[]),
-    ]);
-    return assembleLayerTree(layers, layerGroups);
-  }, [felt]);
-
-  const layersQuery = useSWR('layers', fetchLayersAndGroups);
-
   const pollutantLayers: Pollutant[] = useMemo(() => {
-    if (!layersQuery.data) return [];
+    if (!feltLayers.data) return [];
 
-    const pollutantsInMap = layersQuery.data.reduce((accum, item) => {
+    const pollutantsInMap = feltLayers.data.reduce((accum, item) => {
       item.type === 'layer' &&
       Object.keys(POLLUTANTS).some(key => item.layer.name.includes(key))
         ? accum.push({ name: item.layer.name, id: item.layer.id })
@@ -69,7 +55,7 @@ const PollutantSelect = () => {
 
       return accum;
     }, []);
-  }, [layersQuery.data]);
+  }, [feltLayers.data]);
 
   const handlePollutantChange = useCallback(
     (_value: string, option: Pollutant) => {

@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import {
   Title,
   Group,
@@ -8,25 +7,12 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
-import { Layer, LayerGroup } from '@feltmaps/js-sdk';
-import useSWR from 'swr';
+import { Layer } from '@feltmaps/js-sdk';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
-import { assembleLayerTree, useFelt, useLiveLayer } from '../../utils/felt';
+import { useFelt, useFeltLayers, useLiveLayer } from '../../utils/felt';
 
 const Layers: React.FC = () => {
-  const felt = useFelt();
-
-  const fetchLayersAndGroups = useCallback(async () => {
-    const [layers, layerGroups] = await Promise.all([
-      felt.getLayers().then(layers => layers.filter(Boolean) as Layer[]),
-      felt
-        .getLayerGroups()
-        .then(groups => groups.filter(Boolean) as LayerGroup[]),
-    ]);
-    return assembleLayerTree(layers, layerGroups);
-  }, [felt]);
-
-  const layersQuery = useSWR('layers', fetchLayersAndGroups);
+  const feltLayers = useFeltLayers();
 
   return (
     <Stack flex={1} gap={0}>
@@ -35,9 +21,9 @@ const Layers: React.FC = () => {
       </Title>
       <Divider />
       <Stack flex={1}>
-        {layersQuery.isLoading && <Loader my={8} />}
-        {layersQuery.data &&
-          layersQuery.data.map(n => {
+        {feltLayers.isLoading && <Loader my={8} />}
+        {feltLayers.data &&
+          feltLayers.data.map(n => {
             if (n.type === 'layer') {
               return <LayerItem layer={n.layer} key={n.layer.id} />;
             }
