@@ -109,7 +109,7 @@ export function assembleLayerTree(
   return result;
 }
 
-export function useFeltLayers() {
+export function useFeltLayers(refreshKey: string) {
   const felt = useFelt();
   const fetchLayersAndGroups = async () => {
     const [layers, layerGroups] = await Promise.all([
@@ -121,5 +121,5 @@ export function useFeltLayers() {
     return assembleLayerTree(layers, layerGroups);
   };
 
-  return useSWR('layers', fetchLayersAndGroups);
+  return useSWR(refreshKey, fetchLayersAndGroups);
 }

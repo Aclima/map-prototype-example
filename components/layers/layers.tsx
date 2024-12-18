@@ -12,7 +12,7 @@ import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { useFelt, useFeltLayers, useLiveLayer } from '../../utils/felt';
 
 const Layers: React.FC = () => {
-  const feltLayers = useFeltLayers();
+  const feltLayers = useFeltLayers('layers');
 
   return (
     <Stack flex={1} gap={0}>

@@ -21,21 +21,21 @@ export const POLLUTANTS = {
 type Pollutant = {
   value: string;
   label: string;
-  layerIds: string[];
+  groupIds: string[];
 };
 
 const PollutantSelect = () => {
-  const [value, setValue] = useState<string | null>('blackcarbon');
-  const feltLayers = useFeltLayers();
+  const [value, setValue] = useState('blackcarbon');
+  const feltLayers = useFeltLayers(value);
   const felt = useFelt();
 
   const pollutantLayers: Pollutant[] = useMemo(() => {
     if (!feltLayers.data) return [];
 
     const pollutantsInMap = feltLayers.data.reduce((accum, item) => {
-      item.type === 'layer' &&
-      Object.keys(POLLUTANTS).some(key => item.layer.name.includes(key))
-        ? accum.push({ name: item.layer.name, id: item.layer.id })
+      item.type === 'layerGroup' &&
+      Object.keys(POLLUTANTS).some(key => item.group.name.includes(key))
+        ? accum.push({ name: item.group.name, id: item.group.id })
         : null;
       return accum;
     }, []);
@@ -49,7 +49,7 @@ const PollutantSelect = () => {
         accum.push({
           value: pollutant.value,
           label: pollutant.label,
-          layerIds: layers.map(({ id }) => id),
+          groupIds: layers.map(({ id }) => id),
         });
       }
 
@@ -60,16 +60,14 @@ const PollutantSelect = () => {
   const handlePollutantChange = useCallback(
     (_value: string, option: Pollutant) => {
       setValue(_value);
-      option.layerIds.forEach(layerId => {
-        felt.setLayerVisibility({ show: [layerId] });
-      });
+      const hiddenLayers = pollutantLayers
+        .filter(({ value }) => value !== _value)
+        .map(({ groupIds }) => groupIds)
+        .flat();
 
-      pollutantLayers.forEach(({ value, layerIds }) => {
-        if (value !== _value) {
-          layerIds.forEach(layerId => {
-            felt.setLayerVisibility({ hide: [layerId] });
-          });
-        }
+      felt.setLayerGroupVisibility({
+        show: option.groupIds,
+        hide: hiddenLayers,
       });
     },
     [pollutantLayers, felt],
@@ -79,9 +77,11 @@ const PollutantSelect = () => {
     <Select
       data={pollutantLayers ?? []}
       value={value}
+      defaultValue={value}
       onChange={handlePollutantChange}
       label="Select Pollutant"
       allowDeselect={false}
+      checkIconPosition="right"
     />
   );
 };
