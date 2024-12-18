@@ -7,6 +7,7 @@ import {
   LayerGroup,
 } from '@feltmaps/js-sdk';
 import { useState, useEffect, useRef, createContext, useContext } from 'react';
+import useSWR from 'swr';
 
 export function useFeltEmbed(mapId: string, embedOptions: FeltEmbedOptions) {
   const [felt, setFelt] = useState<FeltController | null>(null);
@@ -68,12 +69,15 @@ export function useLiveLayer(felt: FeltController, initialLayer: Layer) {
 }
 
 export type LayerTree = Array<LayerGroupNode | LayerNode>;
+
 export type LayerGroupNode = {
   type: 'layerGroup';
   group: LayerGroup;
   layers: Layer[];
 };
+
 type LayerNode = { type: 'layer'; layer: Layer };
+
 export function assembleLayerTree(
   layers: Layer[],
   layerGroups: LayerGroup[],
@@ -103,4 +107,19 @@ export function assembleLayerTree(
     }
   }
   return result;
+}
+
+export function useFeltLayers(refreshKey: string) {
+  const felt = useFelt();
+  const fetchLayersAndGroups = async () => {
+    const [layers, layerGroups] = await Promise.all([
+      felt.getLayers().then(layers => layers.filter(Boolean) as Layer[]),
+      felt
+        .getLayerGroups()
+        .then(groups => groups.filter(Boolean) as LayerGroup[]),
+    ]);
+    return assembleLayerTree(layers, layerGroups);
+  };
+
+  return useSWR(refreshKey, fetchLayersAndGroups);
 }
