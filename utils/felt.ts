@@ -1,4 +1,5 @@
 // copied from https://github.com/felt/js-sdk-starter-react/blob/main/src/feltUtils.ts
+import { POLLUTANTS } from '@/constants.ts';
 import {
   Felt,
   FeltController,
@@ -145,3 +146,22 @@ export function useClickedElement(felt: FeltController) {
 
   return clickedElement;
 }
+
+export const useSelectedFeltLayers = (value: string) => {
+  const feltLayers = useFeltLayers(value);
+  const [selectedFeltLayer, setSelectedFeltLayer] = useState<Layer[]>();
+
+  useEffect(() => {
+    if (!feltLayers.data) return;
+    feltLayers.data.forEach(layer => {
+      if (
+        layer.type === 'layerGroup' &&
+        layer.group.name.includes(POLLUTANTS[value].value)
+      ) {
+        setSelectedFeltLayer(layer.layers);
+      }
+    });
+  }, [value, feltLayers]);
+
+  return selectedFeltLayer;
+};

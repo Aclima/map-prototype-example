@@ -72,3 +72,9 @@ export type AmtrakResponse = FeatureCollection<
   MultiLineString,
   AmtrakFeatureProperties
 >;
+
+export type Pollutant = {
+  value: string;
+  label: string;
+  groupIds: string[];
+};

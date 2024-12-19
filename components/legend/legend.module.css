@@ -1,0 +1,23 @@
+.legend {
+  min-height: 150px;
+  margin-left: 10px;
+  margin-bottom: 50px;
+  left: 0px;
+  transform-origin: 0px bottom;
+  position: absolute;
+  width: 300px;
+  bottom: 0px;
+}
+
+.swatchContainer {
+  display: flex;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  min-height: 20px;
+}
+
+.swatch {
+  width: 30px;
+  height: 15px;
+}
