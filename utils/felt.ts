@@ -123,3 +123,25 @@ export function useFeltLayers(refreshKey: string) {
 
   return useSWR(refreshKey, fetchLayersAndGroups);
 }
+
+export function useClickedElement(felt: FeltController) {
+  const [clickedElement, setClickedElement] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = felt.onPointerClick({
+      handler: event => console.log('unsubscribe', event),
+    });
+
+    felt.onPointerClick({
+      handler: event => {
+        setClickedElement(event?.features[0] ?? null);
+      },
+    });
+
+    return unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return clickedElement;
+}

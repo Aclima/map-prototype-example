@@ -1,12 +1,13 @@
 import '@mantine/core/styles.css';
 import Head from 'next/head';
-import { AppShell, MantineProvider } from '@mantine/core';
+import { AppShell, MantineProvider, Loader } from '@mantine/core';
 
 import Header from '@/components/header/header';
 import PollutantSelect from '@/components/pollutantSelect/pollutantSelect';
 import { theme } from '../theme';
 import classes from './index.module.css';
 import { FeltContext, useFeltEmbed } from '../utils/felt';
+import ClickedElement from '@/components/clickedElement/clickedElement';
 
 export default function FeltPage() {
   const { felt, mapRef } = useFeltEmbed('GbuAKqaRQfKXCBcu13Ud2C', {
@@ -36,7 +37,14 @@ export default function FeltPage() {
         </AppShell.Header>
         <AppShell.Navbar>
           <FeltContext.Provider value={felt}>
-            <PollutantSelect />
+            {felt ? (
+              <>
+                <PollutantSelect />
+                <ClickedElement />
+              </>
+            ) : (
+              <Loader color="blue" />
+            )}
           </FeltContext.Provider>
         </AppShell.Navbar>
         <AppShell.Main className={classes.main}>
