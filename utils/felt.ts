@@ -147,6 +147,28 @@ export function useClickedElement(felt: FeltController) {
   return clickedElement;
 }
 
+export function useHoveredElement(felt: FeltController) {
+  const [hoveredElement, setHoveredElement] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = felt.onPointerMove({
+      handler: event => console.log('unsubscribe', event),
+    });
+
+    felt.onPointerMove({
+      handler: event => {
+        setHoveredElement(event?.features[0] ?? null);
+      },
+    });
+
+    return unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return hoveredElement;
+}
+
 export const useSelectedFeltLayers = (value: string) => {
   const feltLayers = useFeltLayers(value);
   const [selectedFeltLayer, setSelectedFeltLayer] = useState<Layer[]>();

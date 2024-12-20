@@ -52,7 +52,7 @@ export default function FeltPage() {
             </AppShell.Navbar>
             <AppShell.Main className={classes.main}>
               <div className={classes.mapContainer} ref={mapRef}>
-                <Legend />
+                {felt && <Legend />}
               </div>
             </AppShell.Main>
           </PollutantProvider>

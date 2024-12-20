@@ -1,12 +1,19 @@
 import { Paper, Text } from '@mantine/core';
 import classes from './legend.module.css';
 import { usePollutant } from '@/context/pollutant';
-import { useSelectedFeltLayers } from '@/utils/felt';
+import {
+  //   useFelt,
+  useSelectedFeltLayers,
+  //   useHoveredElement,
+} from '@/utils/felt';
 
 const Legend = () => {
   const { pollutant } = usePollutant();
+  //   const felt = useFelt();
   const selectedFeltLayer = useSelectedFeltLayers(pollutant);
+  //   const hoveredElement = useHoveredElement(felt);
   // @ts-ignore
+
   const colorScale = selectedFeltLayer?.[0]?.style?.paint?.color ?? [];
 
   return (
