@@ -1,4 +1,5 @@
 // copied from https://github.com/felt/js-sdk-starter-react/blob/main/src/feltUtils.ts
+import { POLLUTANTS } from '@/constants.ts';
 import {
   Felt,
   FeltController,
@@ -123,3 +124,66 @@ export function useFeltLayers(refreshKey: string) {
 
   return useSWR(refreshKey, fetchLayersAndGroups);
 }
+
+export function useClickedElement(felt: FeltController) {
+  const [clickedElement, setClickedElement] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = felt.onPointerClick({
+      handler: event => console.log('unsubscribe', event),
+    });
+
+    felt.onPointerClick({
+      handler: event => {
+        setClickedElement(event?.features[0] ?? null);
+      },
+    });
+
+    return unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return clickedElement;
+}
+
+export function useHoveredElement(felt: FeltController) {
+  const [hoveredElement, setHoveredElement] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = felt.onPointerMove({
+      handler: event => console.log('unsubscribe', event),
+    });
+
+    felt.onPointerMove({
+      handler: event => {
+        setHoveredElement(event?.features[0] ?? null);
+      },
+    });
+
+    return unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return hoveredElement;
+}
+
+export const useSelectedFeltLayers = (value: string) => {
+  const feltLayers = useFeltLayers(value);
+  const [selectedFeltLayer, setSelectedFeltLayer] = useState<Layer[]>();
+
+  useEffect(() => {
+    if (!feltLayers.data) return;
+    feltLayers.data.forEach(layer => {
+      if (
+        layer.type === 'layerGroup' &&
+        layer.group.name.includes(POLLUTANTS[value].value)
+      ) {
+        setSelectedFeltLayer(layer.layers);
+      }
+    });
+  }, [value, feltLayers]);
+
+  return selectedFeltLayer;
+};

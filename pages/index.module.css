@@ -19,6 +19,7 @@
 .mapContainer {
   height: 50%;
   width: 100%;
+  position: relative;
   @media (min-width: $mantine-breakpoint-xs) {
     height: 100%;
   }
