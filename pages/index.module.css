@@ -28,3 +28,7 @@
 .panel {
   height: 100%;
 }
+
+.navBar {
+  overflow: auto;
+}

@@ -42,10 +42,10 @@ export default function FeltPage() {
           <PollutantProvider>
             <AppShell.Navbar>
               {felt ? (
-                <>
+                <div className={classes.navBar}>
                   <PollutantSelect />
                   <ClickedElement />
-                </>
+                </div>
               ) : (
                 <Loader color="blue" />
               )}
