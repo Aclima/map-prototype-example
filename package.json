@@ -32,10 +32,13 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "csv-parse": "^5.6.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "h3-js": "^4.1.0",
     "lint-staged": "^15.2.2",
     "pre-git": "^3.17.1",
+    "stream-transform": "^3.3.3",
     "typescript": "^5"
   },
   "release": {

@@ -1,10 +1,15 @@
 import React from 'react';
 import { useClickedElement, useFelt } from '@/utils/felt';
 import { Table } from '@mantine/core';
+import { usePollutant } from '@/context/pollutant';
+import { MeasurementScatterPlot } from './scatterPlot';
+
+
 
 const ClickedElement: React.FC = () => {
   const felt = useFelt();
   const clickedElement = useClickedElement(felt);
+  const pollutant = usePollutant();
 
   return (
     <div>
@@ -40,6 +45,12 @@ const ClickedElement: React.FC = () => {
               </Table.Tr>
             </Table.Tbody>
           </Table>
+
+            <MeasurementScatterPlot
+              pollutant={pollutant.pollutant}
+              h3Id={clickedElement?.properties.hexagons}
+            />
+
         </div>
       ) : (
         <p>No element clicked yet.</p>
