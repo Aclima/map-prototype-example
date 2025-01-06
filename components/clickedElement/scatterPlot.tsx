@@ -3,11 +3,11 @@ import { ScatterChart } from "@mantine/charts";
 import { Alert } from "@mantine/core";
 import classes from "./clickedElement.module.css";
 
-export const MeasurementScatterPlot: React.FC<{ modality: string; h3Id: string }> = ({
-  modality,
+export const MeasurementScatterPlot: React.FC<{ pollutant: string; h3Id: string }> = ({
+  pollutant,
   h3Id,
 }) => {
-  const { data } = useFetchPointDataByH3({ modality, h3Id });
+  const { data } = useFetchPointDataByH3({ pollutant, h3Id });
   const chartData = data
     ? [
         {

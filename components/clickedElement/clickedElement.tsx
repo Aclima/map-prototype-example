@@ -47,7 +47,7 @@ const ClickedElement: React.FC = () => {
           </Table>
 
             <MeasurementScatterPlot
-              modality={pollutant.pollutant}
+              pollutant={pollutant.pollutant}
               h3Id={clickedElement?.properties.hexagons}
             />
 
